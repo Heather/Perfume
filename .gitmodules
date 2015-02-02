@@ -1,0 +1,12 @@
+[submodule "cmake"]
+	path = cmake
+	url = https://github.com/snikulov/cmake-modules.git
+[submodule "hdr/application"]
+	path = hdr/application
+	url = https://github.com/retf/Boost.Application.git
+[submodule "hdr/plugin"]
+	path = hdr/plugin
+	url = https://github.com/apolukhin/Boost.DLL.git
+[submodule "hdr/type_index"]
+	path = hdr/type_index
+	url = https://github.com/boostorg/type_index.git
