@@ -5,10 +5,13 @@ Qt5 QtQuick Boost CMAKE Application template
 cmake ../Perfume
 ```
 
-or
+Notes:
+======
 
-``` shell
-cmake ../Perfume -G"Visual Studio 11 Win64"
-```
+ - It's possible to run QtQuick application from Visual Studio, to do it you must add path to Qt5 bin (where dlls located) to it's environment.
+ - for 64 build use something alike: `cmake ../Perfume -G"Visual Studio 11 Win64"`
 
-based on https://github.com/snikulov/boost.app.cmake
+Credits
+=======
+
+ - based on https://github.com/snikulov/boost.app.cmake
