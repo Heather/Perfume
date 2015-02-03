@@ -1,8 +1,3 @@
-#define BOOST_ALL_DYN_LINK
-#define BOOST_LIB_DIAGNOSTIC
-
-#define BOOST_APPLICATION_FEATURE_NS_SELECT_BOOST
-
 #include <boost/program_options.hpp>
 #include <boost/application.hpp>
 
@@ -22,7 +17,6 @@
 using namespace log4cplus;
 using namespace log4cplus::helpers;
 using namespace log4cplus::spi;
-using namespace boost;
 
 void init_default(Logger& target, LogLevel ll) {
   // TODO: We're on Windows so far - so consider Syslog for unix
@@ -62,6 +56,7 @@ public:
       // sleep one second...
       boost::this_thread::sleep(boost::posix_time::seconds(1));
       LOG4CPLUS_INFO(logger_, "Running worker... count=" << cnt++);
+
     }
   }
 
@@ -99,14 +94,16 @@ private:
   Logger logger_;
 };
 
-bool setup(boost::application::context& context, bool& is_service) {
+bool setup(boost::application::context& context, bool& is_service)
+{
   boost::strict_lock<boost::application::aspect_map> guard(context);
 
   boost::shared_ptr<boost::application::args> myargs
     = context.find<boost::application::args>(guard);
 
-  boost::shared_ptr<application::path> mypath; //= context_.find<application::path>();
-                                               // https://github.com/retf/Boost.Application/blob/master/example/path.cpp
+  boost::shared_ptr<boost::application::path> mypath
+    = context.find<boost::application::path>(guard);
+
 
   // provide setup for windows service
 #if defined(BOOST_WINDOWS_API)
@@ -180,8 +177,9 @@ int main(int argc, char *argv[]) {
   server app(app_context);
 
   // my server aspects
-  //    app_context.insert<boost::application::path>(
-  //            boost::make_shared<boost::application::path_default_behaviour>(argc, argv));
+  app_context.insert<boost::application::path>(
+    boost::make_shared<boost::application::default_path>());
+
   app_context.insert<boost::application::args>(
     boost::make_shared<boost::application::args>(argc, argv));
 

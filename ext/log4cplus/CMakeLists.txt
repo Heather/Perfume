@@ -13,4 +13,3 @@ ExternalProject_Add(log4cplus
     PREFIX "${DEPS_LOCATION}"
     INSTALL_DIR "${DEPS_LOCATION}"
 )
-
