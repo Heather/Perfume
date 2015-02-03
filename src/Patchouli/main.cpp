@@ -94,8 +94,7 @@ private:
   Logger logger_;
 };
 
-bool setup(boost::application::context& context, bool& is_service)
-{
+bool setup(boost::application::context& context, bool& is_service) {
   boost::strict_lock<boost::application::aspect_map> guard(context);
 
   boost::shared_ptr<boost::application::args> myargs
