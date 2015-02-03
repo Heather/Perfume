@@ -6,6 +6,8 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 
+#include "stdafx.h"
+
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
 
@@ -20,12 +22,11 @@ int main(int argc, char *argv[]) {
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-  QObject *root = 0;
   if (engine.rootObjects().size() > 0) {
-    root = engine.rootObjects().at(0);
+    QObject* root = engine.rootObjects().at(0);
 
     QAction *minimizeAction = new QAction(QObject::tr("Mi&nimize"), root);
-    root->connect(minimizeAction, SIGNAL(triggered()), root, SLOT(hide()));
+    root ->connect(minimizeAction, SIGNAL(triggered()), root, SLOT(hide()));
     QAction *maximizeAction = new QAction(QObject::tr("Ma&ximize"), root);
     root->connect(maximizeAction, SIGNAL(triggered()), root, SLOT(showMaximized()));
     QAction *restoreAction = new QAction(QObject::tr("&Restore"), root);
@@ -43,10 +44,21 @@ int main(int argc, char *argv[]) {
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(root);
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->setIcon(QIcon(":/resources/logo.png"));
-    trayIcon->showMessage("Cedarwood", "Cedarwood is running");
-    root->connect(trayIcon, SIGNAL(messageClicked()), root,  SLOT(showNormal()));
-
     trayIcon->show();
+
+    root->connect(trayIcon, &QSystemTrayIcon::activated,
+                  [root] (QSystemTrayIcon::ActivationReason reason) {
+      switch (reason) {
+      case QSystemTrayIcon::Trigger:
+      case QSystemTrayIcon::DoubleClick:
+        ((QWidget*)root)->showNormal();
+        break;
+      case QSystemTrayIcon::MiddleClick:
+        break;
+      default:
+        ;
+      }
+    });
   }
 
   return app.exec();
