@@ -1,3 +1,5 @@
+#define app_name "Patchouli 0.0.1"
+
 #include <boost/program_options.hpp>
 #include <boost/application.hpp>
 
@@ -114,6 +116,7 @@ bool setup(boost::application::context& context, bool& is_service) {
   // define our simple installation schema options
   po::options_description install("service options");
   install.add_options()
+    ("version", "show version")
     ("help", "produce a help message")
     (",i", "install service")
     (",u", "unistall service")
@@ -127,8 +130,13 @@ bool setup(boost::application::context& context, bool& is_service) {
   po::store(po::parse_command_line(myargs->argc(), myargs->argv(), install), vm);
   boost::system::error_code ec;
 
+  if (vm.count("version")) {
+    std::cout << app_name << std::endl;
+    return true;
+  }
+
   if (vm.count("help")) {
-    std::cout << install << std::cout;
+    std::cout << install << std::endl;
     return true;
   }
 
@@ -170,8 +178,6 @@ int main(int argc, char *argv[]) {
   Logger logger = Logger::getInstance(LOG4CPLUS_TEXT("boost.app.log4cplus"));
   init_default(logger, log4cplus::INFO_LOG_LEVEL);
 
-  LOG4CPLUS_INFO(logger, "Running boost::application example");
-
   boost::application::context app_context;
   server app(app_context);
 
@@ -209,7 +215,7 @@ int main(int argc, char *argv[]) {
   bool is_service = true;
 
   if(setup(app_context, is_service)) {
-    std::cout << "[I] Setup changed the current configuration." << std::endl;
+    LOG4CPLUS_INFO(logger, "Setup changed the current configuration");
     return 0;
   }
 
