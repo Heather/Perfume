@@ -43,6 +43,9 @@ int main(int argc, char *argv[]) {
     QSystemTrayIcon *trayIcon = new QSystemTrayIcon(root);
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->setIcon(QIcon(":/resources/logo.png"));
+    trayIcon->showMessage("Cedarwood", "Cedarwood is running");
+    root->connect(trayIcon, SIGNAL(messageClicked()), root,  SLOT(showNormal()));
+
     trayIcon->show();
   }
 

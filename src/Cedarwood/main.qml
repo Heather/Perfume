@@ -7,7 +7,7 @@ ApplicationWindow {
   title: qsTr("Cedarwood")
   width: 640
   height: 480
-  visible: true
+  visible: Window.Hidden
 
   menuBar: MenuBar {
     Menu {

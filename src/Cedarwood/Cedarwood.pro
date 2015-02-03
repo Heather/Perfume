@@ -1,6 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets
+QMAKE_CXXFLAGS += -std=c++1y -Wall -Wextra -pedantic
 
 SOURCES += main.cpp
 
