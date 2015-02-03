@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
+#include <QQuickWindow>
 #include <QMessageBox>
 #include <QAction>
 #include <QMenu>
@@ -51,9 +52,10 @@ int main(int argc, char *argv[]) {
       switch (reason) {
       case QSystemTrayIcon::Trigger:
       case QSystemTrayIcon::DoubleClick:
-        ((QWidget*)root)->showNormal();
+        ((QQuickWindow *)root)->showNormal();
         break;
       case QSystemTrayIcon::MiddleClick:
+        ((QQuickWindow *)root)->hide();
         break;
       default:
         ;
