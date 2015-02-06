@@ -49,16 +49,16 @@ class server {
 public:
   server(boost::application::context& ctx)
     : ctx_(ctx) {
-      BasicConfigurator::doConfigure();
-      logger_ = Logger::getInstance(LOG4CPLUS_TEXT("app.service"));
-      init_default(logger_, log4cplus::INFO_LOG_LEVEL);
+    BasicConfigurator::doConfigure();
+    logger_ = Logger::getInstance(LOG4CPLUS_TEXT("app.service"));
+    init_default(logger_, log4cplus::INFO_LOG_LEVEL);
   }
 
   void worker() {
     unsigned int cnt = 0;
 
     boost::shared_ptr<boost::application::status> st = ctx_.find<boost::application::status>();
-    while(st->state() != boost::application::status::stopped) {
+    while (st->state() != boost::application::status::stopped) {
       // sleep one second...
       boost::this_thread::sleep(boost::posix_time::seconds(1));
       LOG4CPLUS_INFO(logger_, "Running worker... count=" << cnt++);
@@ -70,10 +70,9 @@ public:
     LOG4CPLUS_INFO(logger_, "Running server class");
 
     //Remove shared memory on construction and destruction
-    struct shm_remove
-    {
-      shm_remove() {  shared_memory_object::remove("Patchouli"); }
-      ~shm_remove(){  shared_memory_object::remove("Patchouli"); }
+    struct shm_remove {
+      shm_remove() { shared_memory_object::remove("Patchouli"); }
+      ~shm_remove() { shared_memory_object::remove("Patchouli"); }
     } remover;
 
     //Create a managed shared memory segment
@@ -83,7 +82,7 @@ public:
     managed_shared_memory::size_type free_memory = segment.get_free_memory();
     void * shptr = segment.allocate(1024/*bytes to allocate*/);
 
-    segment.construct<sharedString>( "sharedString" )(app_name, segment.get_segment_manager());
+    segment.construct<sharedString>("sharedString")(app_name, segment.get_segment_manager());
 
     // launch a work thread
     boost::thread thread(&server::worker, this);
@@ -234,7 +233,7 @@ int main(int argc, char *argv[]) {
 
   bool is_service = true;
 
-  if(setup(app_context, is_service)) {
+  if (setup(app_context, is_service)) {
     LOG4CPLUS_INFO(logger, "Setup changed the current configuration");
     return 0;
   }
@@ -250,7 +249,7 @@ int main(int argc, char *argv[]) {
     result = boost::application::launch<boost::application::common>(app, app_context, ec);
   }
 
-  if(ec) {
+  if (ec) {
     // log...
     std::cout << "[E] " << ec.message()
       << " <" << ec.value() << "> " << std::cout;

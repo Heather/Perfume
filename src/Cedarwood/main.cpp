@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     QObject* root = engine.rootObjects().at(0);
 
     QAction *minimizeAction = new QAction(QObject::tr("Mi&nimize"), root);
-    root ->connect(minimizeAction, SIGNAL(triggered()), root, SLOT(hide()));
+    root->connect(minimizeAction, SIGNAL(triggered()), root, SLOT(hide()));
     QAction *maximizeAction = new QAction(QObject::tr("Ma&ximize"), root);
     root->connect(maximizeAction, SIGNAL(triggered()), root, SLOT(showMaximized()));
     QAction *restoreAction = new QAction(QObject::tr("&Restore"), root);
@@ -50,27 +50,27 @@ int main(int argc, char *argv[]) {
     trayIcon->show();
 
     root->connect(trayIcon, &QSystemTrayIcon::activated,
-      [root] (QSystemTrayIcon::ActivationReason reason) {
-        switch (reason) {
-        case QSystemTrayIcon::Trigger:
-        case QSystemTrayIcon::DoubleClick:
-          ((QQuickWindow *)root)->showNormal();
-          break;
-        case QSystemTrayIcon::MiddleClick:
-          ((QQuickWindow *)root)->hide();
-          break;
-        default:
-          ;
-        }
+      [root](QSystemTrayIcon::ActivationReason reason) {
+      switch (reason) {
+      case QSystemTrayIcon::Trigger:
+      case QSystemTrayIcon::DoubleClick:
+        ((QQuickWindow *)root)->showNormal();
+        break;
+      case QSystemTrayIcon::MiddleClick:
+        ((QQuickWindow *)root)->hide();
+        break;
+      default:
+        ;
+      }
     });
 
     //Open managed segment
     try {
       managed_shared_memory segment(open_only, "Patchouli");
 
-      std::pair<sharedString * , size_t > p= segment.find<sharedString>("sharedString");
-      ((QQuickWindow *)root)->setTitle( p.first->c_str() );
-    } catch(...) {
+      std::pair<sharedString *, size_t > p = segment.find<sharedString>("sharedString");
+      ((QQuickWindow *)root)->setTitle(p.first->c_str());
+    } catch (...) {
       ;
     }
   }
