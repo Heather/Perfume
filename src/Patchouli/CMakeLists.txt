@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 set(PROJECT_NAME Patchouli)
-set(SRC_FILES main.cpp)
+SET(HEADERS
+    stdafx.h
+)
+set(SRC_FILES 
+    main.cpp
+)
 
 project(${PROJECT_NAME} CXX)
 
 include_directories (.)
-add_executable( ${PROJECT_NAME} ${SRC_FILES} )
+add_executable( ${PROJECT_NAME} ${SRC_FILES} ${HEADERS} )
 if(MSVC)
     set(EXT_LOG4CPLUS_NAME debug "log4cplusSD" optimized "log4cplusS" CACHE STRING "Log4cplus Libraries")
 endif()

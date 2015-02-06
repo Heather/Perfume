@@ -5,6 +5,9 @@ set(PROJECT_NAME Cedarwood)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
+SET(HEADERS
+    stdafx.h
+)
 set(SRC_FILES main.cpp)
 set(QML_FILES 
     main.qml
@@ -37,6 +40,7 @@ qt5_add_resources(RESOURCES qml.qrc)
 
 add_executable( ${PROJECT_NAME} WIN32 
     ${SRC_FILES}
+    ${HEADERS}
     ${QML_FILES}
     ${RESOURCES} 
 )

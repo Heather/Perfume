@@ -1,5 +1,7 @@
 #define app_name "Patchouli 0.0.1"
 
+#include "stdafx.h"
+
 #include <boost/program_options.hpp>
 #include <boost/application.hpp>
 
@@ -19,6 +21,8 @@
 using namespace log4cplus;
 using namespace log4cplus::helpers;
 using namespace log4cplus::spi;
+
+using namespace boost::interprocess;
 
 void init_default(Logger& target, LogLevel ll) {
   // TODO: We're on Windows so far - so consider Syslog for unix
@@ -45,9 +49,9 @@ class server {
 public:
   server(boost::application::context& ctx)
     : ctx_(ctx) {
-    BasicConfigurator::doConfigure();
-    logger_ = Logger::getInstance(LOG4CPLUS_TEXT("app.service"));
-    init_default(logger_, log4cplus::INFO_LOG_LEVEL);
+      BasicConfigurator::doConfigure();
+      logger_ = Logger::getInstance(LOG4CPLUS_TEXT("app.service"));
+      init_default(logger_, log4cplus::INFO_LOG_LEVEL);
   }
 
   void worker() {
