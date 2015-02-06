@@ -1,9 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets
-QMAKE_CXXFLAGS += -std=c++1y -Wall -Wextra -pedantic
-
-SOURCES += main.cpp
+QMAKE_CXXFLAGS += -std=c++1y -Wall -pedantic -O2
 
 RESOURCES += qml.qrc
 
@@ -17,3 +15,15 @@ DISTFILES +=
 
 HEADERS += \
     stdafx.h
+
+SOURCES += main.cpp
+
+unix:!macx|win32: LIBS += -L$$PWD/../../../../boost/stage/lib/ -llibboost_filesystem-vc110-mt-1_57 -llibboost_date_time-vc110-mt-gd-1_57
+
+INCLUDEPATH += $$PWD/../../../../boost
+DEPENDPATH += $$PWD/../../../../boost
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../../../boost/stage/lib/libboost_filesystem-vc110-mt-1_57.lib
+else:unix:!macx|win32-g++: PRE_TARGETDEPS += $$PWD/../../../../boost/stage/lib/liblibboost_filesystem-vc110-mt-1_57.a
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../../../boost/stage/lib/libboost_date_time-vc110-mt-gd-1_57.lib
+else:unix:!macx|win32-g++: PRE_TARGETDEPS += $$PWD/../../../../boost/stage/lib/libboost_date_time-vc110-mt-gd-1_57.a
