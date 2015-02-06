@@ -1,6 +1,8 @@
 Qt5 QtQuick Boost Interprocess CMAKE Application Template
 ---------------------------------------------------------
 
+<img align="right" src="http://www.eisenberg.com/media/product/2ef/j-ose-by-eisenberg-paris-9b5.png">
+
  - Boost Application runs as Service on Windows, as Daemon on Linux, can self install / uninstall / run from console
  - Plugin system support via Boost.DLL
  - Modern CMAKE system for crossIDE building
@@ -30,61 +32,42 @@ TODO
 Server
 ======
 
+<img align="left" src="http://cdn.flaticon.com/png/256/30983.png">
+
 ``` cpp
-  int operator()() {
-    LOG4CPLUS_INFO(logger_, "Running server class");
+LOG4CPLUS_INFO(logger_, "Running server class");
+managed_shared_memory segment
+   (create_only, "Patchouli", 65536);
 
-    //Remove shared memory on construction and destruction
-    struct shm_remove
-    {
-      shm_remove() {  shared_memory_object::remove("Patchouli"); }
-      ~shm_remove(){  shared_memory_object::remove("Patchouli"); }
-    } remover;
+managed_shared_memory::size_type free_memory = 
+                         segment.get_free_memory();
 
-    //Create a managed shared memory segment
-    managed_shared_memory segment(create_only, "Patchouli", 65536);
+void * shptr = segment.allocate(1024);
+segment.construct<sharedString>( "sharedString" )
+        (app_name, segment.get_segment_manager());
 
-    //Allocate a portion of the segment (raw memory)
-    managed_shared_memory::size_type free_memory = segment.get_free_memory();
-    void * shptr = segment.allocate(1024/*bytes to allocate*/);
-
-    segment.construct<sharedString>( "sharedString" )(app_name, segment.get_segment_manager());
-
-    // launch a work thread
-    boost::thread thread(&server::worker, this);
-
-    ctx_.find<boost::application::wait_for_termination_request>()->wait();
+boost::thread thread(&server::worker, this);
 ```
 
 Client
 ======
 
+<img align="right" src="http://cdn.flaticon.com/png/256/33804.png">
+
 ``` cpp
-    QSystemTrayIcon *trayIcon = new QSystemTrayIcon(root);
-    trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setIcon(QIcon(":/resources/logo.png"));
-    trayIcon->show();
-
-    root->connect(trayIcon, &QSystemTrayIcon::activated,
-      [root] (QSystemTrayIcon::ActivationReason reason) {
-        switch (reason) {
-        case QSystemTrayIcon::Trigger:
-        case QSystemTrayIcon::DoubleClick:
-          ((QQuickWindow *)root)->showNormal();
-          break;
-        case QSystemTrayIcon::MiddleClick:
-          ((QQuickWindow *)root)->hide();
-          break;
-        default:
-          ;
-        }
-    });
-
-    //Open managed segment
-    managed_shared_memory segment(open_only, "Patchouli");
-
-    std::pair<sharedString * , size_t > p= segment.find<sharedString>("sharedString");
-    ((QQuickWindow *)root)->setTitle( p.first->c_str() );
+root->connect(trayIcon, &QSystemTrayIcon::activated,
+  [root] (QSystemTrayIcon::ActivationReason reason) {
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+      ((QQuickWindow *)root)->showNormal();
+      break;
+    }
+});
+managed_shared_memory segment(open_only, "Patchouli");
+std::pair<sharedString * , size_t > p
+  = segment.find<sharedString>("sharedString");
+((QQuickWindow *)root)->setTitle( p.first->c_str() );
 ```
  
 Credits
