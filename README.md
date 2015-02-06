@@ -28,7 +28,7 @@ Notes:
 TODO
 ====
 
- - ...
+ - last boost version ( 105700+ is not supported for now due Boost.Application)
 
 Server
 ======
