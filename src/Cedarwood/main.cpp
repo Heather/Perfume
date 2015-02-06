@@ -65,10 +65,14 @@ int main(int argc, char *argv[]) {
     });
 
     //Open managed segment
-    managed_shared_memory segment(open_only, "Patchouli");
+    try {
+      managed_shared_memory segment(open_only, "Patchouli");
 
-    std::pair<sharedString * , size_t > p= segment.find<sharedString>("sharedString");
-    ((QQuickWindow *)root)->setTitle( p.first->c_str() );
+      std::pair<sharedString * , size_t > p= segment.find<sharedString>("sharedString");
+      ((QQuickWindow *)root)->setTitle( p.first->c_str() );
+    } catch(...) {
+      ;
+    }
   }
 
   return app.exec();
