@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
@@ -7,13 +9,15 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 
+using namespace boost::interprocess;
+
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
 
   if (!QSystemTrayIcon::isSystemTrayAvailable()) {
     QMessageBox::critical(0, QObject::tr("Systray"),
-                          QObject::tr("I couldn't detect any system tray "
-                                      "on this system."));
+      QObject::tr("I couldn't detect any system tray "
+      "on this system."));
     return 1;
   }
   QApplication::setQuitOnLastWindowClosed(false);
@@ -46,19 +50,25 @@ int main(int argc, char *argv[]) {
     trayIcon->show();
 
     root->connect(trayIcon, &QSystemTrayIcon::activated,
-                  [root] (QSystemTrayIcon::ActivationReason reason) {
-      switch (reason) {
-      case QSystemTrayIcon::Trigger:
-      case QSystemTrayIcon::DoubleClick:
-        ((QQuickWindow *)root)->showNormal();
-        break;
-      case QSystemTrayIcon::MiddleClick:
-        ((QQuickWindow *)root)->hide();
-        break;
-      default:
-        ;
-      }
+      [root] (QSystemTrayIcon::ActivationReason reason) {
+        switch (reason) {
+        case QSystemTrayIcon::Trigger:
+        case QSystemTrayIcon::DoubleClick:
+          ((QQuickWindow *)root)->showNormal();
+          break;
+        case QSystemTrayIcon::MiddleClick:
+          ((QQuickWindow *)root)->hide();
+          break;
+        default:
+          ;
+        }
     });
+
+    //Open managed segment
+    managed_shared_memory segment(open_only, "Patchouli");
+
+    std::pair<sharedString * , size_t > p= segment.find<sharedString>("sharedString");
+    ((QQuickWindow *)root)->setTitle( p.first->c_str() );
   }
 
   return app.exec();

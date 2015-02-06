@@ -69,6 +69,22 @@ public:
   int operator()() {
     LOG4CPLUS_INFO(logger_, "Running server class");
 
+    //Remove shared memory on construction and destruction
+    struct shm_remove
+    {
+      shm_remove() {  shared_memory_object::remove("Patchouli"); }
+      ~shm_remove(){  shared_memory_object::remove("Patchouli"); }
+    } remover;
+
+    //Create a managed shared memory segment
+    managed_shared_memory segment(create_only, "Patchouli", 65536);
+
+    //Allocate a portion of the segment (raw memory)
+    managed_shared_memory::size_type free_memory = segment.get_free_memory();
+    void * shptr = segment.allocate(1024/*bytes to allocate*/);
+
+    segment.construct<sharedString>( "sharedString" )(app_name, segment.get_segment_manager());
+
     // launch a work thread
     boost::thread thread(&server::worker, this);
 
