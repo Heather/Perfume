@@ -1,31 +1,111 @@
 import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
+import QtQml.Models 2.1
 
-Item {
-    width: 640
-    height: 480
+Rectangle {
+    id: mainRect
+    width: 800
+    height: 600
+    visible: true
 
-    property alias button3: button3
-    property alias button2: button2
-    property alias button1: button1
+    property int listViewActive: 0
 
-    RowLayout {
-        anchors.centerIn: parent
+    Rectangle {
+        id: banner
+        height: 80
+        anchors.top: parent.top
+        width: parent.width
+        color: "#000000"
 
-        Button {
-            id: button1
-            text: qsTr("Press Me 1")
+        Image {
+            id: arrowLeft
+            source: "/resources/left.png"
+            anchors.left: banner.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: banner.verticalCenter
+            visible: root.currentIndex == 1 ? true : false
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: listViewActive = 1;
+            }
         }
 
-        Button {
-            id: button2
-            text: qsTr("Press Me 2")
+        Image {
+            id: arrowRight
+            source: "/resources/left.png"
+            anchors.left: banner.right
+            anchors.leftMargin: -100
+            anchors.verticalCenter: banner.verticalCenter
+            visible: true
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: listViewActive = 0;
+            }
         }
 
-        Button {
-            id: button3
-            text: qsTr("Press Me 3")
+        Item {
+            id: textItem
+            width: stocText.width + qtText.width
+            height: stocText.height + qtText.height
+            anchors.horizontalCenter: banner.horizontalCenter
+            anchors.verticalCenter: banner.verticalCenter
+
+            Text {
+                id: stocText
+                anchors.verticalCenter: textItem.verticalCenter
+                color: "#ffffff"
+                font.family: "Abel"
+                font.pointSize: 40
+                text: "Cedarwood"
+            }
+            Text {
+                id: qtText
+                anchors.verticalCenter: textItem.verticalCenter
+                anchors.left: stocText.right
+                color: "#5caa15"
+                font.family: "Abel"
+                font.pointSize: 40
+                text: "Qt"
+            }
+        }
+    }
+
+    ListView {
+        id: root
+        width: parent.width
+        anchors.top: banner.bottom
+        anchors.bottom: parent.bottom
+        snapMode: ListView.SnapOneItem
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        highlightMoveDuration: 250
+        focus: false
+        orientation: ListView.Horizontal
+        boundsBehavior: Flickable.StopAtBounds
+        currentIndex: listViewActive == 0 ? 1 : 0
+        onCurrentIndexChanged:
+            if (currentIndex == 1)
+                listViewActive = 0;
+
+        StockModel {
+            id: stock
+            stockId: listView.currentStockId
+            stockName: listView.currentStockName
+        }
+
+        model: ObjectModel {
+            StockListView {
+                id: listView
+                width: root.width
+                height: root.height - 100
+            }
+            StockView {
+                id: stockView
+                width: root.width
+                height: root.height - 100
+                stocklist: listView
+                stock: stock
+            }
         }
     }
 }

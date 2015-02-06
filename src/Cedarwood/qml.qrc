@@ -3,5 +3,16 @@
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
         <file>resources/logo.png</file>
+        <file>resources/left.png</file>
+        <file>Button.qml</file>
+        <file>CheckBox.qml</file>
+        <file>StockChart.qml</file>
+        <file>StockInfo.qml</file>
+        <file>StockListModel.qml</file>
+        <file>StockListView.qml</file>
+        <file>StockModel.qml</file>
+        <file>StockSettingsPanel.qml</file>
+        <file>StockView.qml</file>
+        <file>ObjectModel.qml</file>
     </qresource>
 </RCC>

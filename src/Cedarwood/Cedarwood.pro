@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets
-QMAKE_CXXFLAGS += -std=c++1y -Wall -pedantic -O2
+QMAKE_CXXFLAGS += -std=c++11 -Wall -O2
 
 RESOURCES += qml.qrc
 

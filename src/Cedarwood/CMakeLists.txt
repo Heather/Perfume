@@ -10,11 +10,22 @@ SET(HEADERS
 )
 set(SRC_FILES main.cpp)
 set(QML_FILES 
-    main.qml
-    MainForm.ui.qml
+        main.qml
+        MainForm.ui.qml
+        Button.qml
+        CheckBox.qml
+        StockChart.qml
+        StockInfo.qml
+        StockListModel.qml
+        StockListView.qml
+        StockModel.qml
+        StockSettingsPanel.qml
+        StockView.qml
+        ObjectModel.qml
 )
 set(RES_FILES 
     resources/logo.png
+    resources/left.png
 )
 
 source_group("QML" FILES ${QML_FILES})
