@@ -10,6 +10,3 @@
 [submodule "hdr/type_index"]
 	path = hdr/type_index
 	url = https://github.com/boostorg/type_index.git
-[submodule "hdr/interprocess"]
-	path = hdr/interprocess
-	url = git@github.com:boostorg/interprocess.git

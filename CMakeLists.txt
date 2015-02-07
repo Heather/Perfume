@@ -42,14 +42,8 @@ include_directories(hdr)
 include_directories(${BOOST_APP_ROOT}/include)
 include_directories(${BOOST_APP_ROOT}/example)
 if (Boost_VERSION GREATER 105700)
-    #Boost.Interprocess setup
-    set(BOOST_INTERPROCESS "hdr/interprocess")
-    get_filename_component(__abs_path ${BOOST_INTERPROCESS} ABSOLUTE)
-    file(TO_CMAKE_PATH ${__abs_path} BOOST_INTERPROCESS_PATH)
-    include_directories(${BOOST_INTERPROCESS}/include)
-    
-    #Boost asio / lambda / ... location is different
     include_directories(${Boost_INCLUDE_DIR}/libs/asio/include)
+    include_directories(${Boost_INCLUDE_DIR}/libs/interprocess/include)
     include_directories(${Boost_INCLUDE_DIR}/libs/lambda/include)
     include_directories(${Boost_INCLUDE_DIR}/libs/thread/include)
     include_directories(${Boost_INCLUDE_DIR}/libs/uuid/include)
