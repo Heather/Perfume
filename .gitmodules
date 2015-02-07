@@ -3,10 +3,13 @@
 	url = https://github.com/snikulov/cmake-modules.git
 [submodule "hdr/application"]
 	path = hdr/application
-	url = https://github.com/retf/Boost.Application.git
+	url = https://github.com/Heather/Boost.Application.git
 [submodule "hdr/plugin"]
 	path = hdr/plugin
 	url = https://github.com/apolukhin/Boost.DLL.git
 [submodule "hdr/type_index"]
 	path = hdr/type_index
 	url = https://github.com/boostorg/type_index.git
+[submodule "hdr/interprocess"]
+	path = hdr/interprocess
+	url = git@github.com:boostorg/interprocess.git

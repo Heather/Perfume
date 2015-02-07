@@ -209,7 +209,11 @@ int main(int argc, char *argv[]) {
 
   // add termination handler
   boost::application::handler<>::callback termination_callback
+#if (BOOST_VERSION > 105700)
+    = boost::bind(&server::stop, &app);
+#else
     = boost::bind<bool>(&server::stop, &app);
+#endif
 
   app_context.insert<boost::application::termination_handler>(
     boost::make_shared<boost::application::termination_handler_default_behaviour>(termination_callback));
@@ -218,14 +222,22 @@ int main(int argc, char *argv[]) {
 #if defined(BOOST_WINDOWS_API)
   // windows only : add pause handler
   boost::application::handler<>::callback pause_callback
+#if (BOOST_VERSION > 105700)
+    = boost::bind(&server::pause, &app);
+#else
     = boost::bind<bool>(&server::pause, &app);
+#endif
 
   app_context.insert<boost::application::pause_handler>(
     boost::make_shared<boost::application::pause_handler_default_behaviour>(pause_callback));
 
   // windows only : add resume handler
   boost::application::handler<>::callback resume_callback
+#if (BOOST_VERSION > 105700)
+    = boost::bind(&server::resume, &app);
+#else
     = boost::bind<bool>(&server::resume, &app);
+#endif
 
   app_context.insert<boost::application::resume_handler>(
     boost::make_shared<boost::application::resume_handler_default_behaviour>(resume_callback));
@@ -252,7 +264,7 @@ int main(int argc, char *argv[]) {
   if (ec) {
     // log...
     std::cout << "[E] " << ec.message()
-      << " <" << ec.value() << "> " << std::cout;
+      << " <" << ec.value() << "> " << std::endl;
   }
 
   return result;
