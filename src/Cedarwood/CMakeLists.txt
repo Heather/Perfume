@@ -7,8 +7,12 @@ set(CMAKE_AUTOMOC ON)
 
 SET(HEADERS
     stdafx.h
+    qmain.h
 )
-set(SRC_FILES main.cpp)
+set(SRC_FILES 
+    main.cpp
+    qmain.cpp
+)
 set(QML_FILES 
         main.qml
         MainForm.ui.qml

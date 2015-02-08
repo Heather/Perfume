@@ -14,9 +14,12 @@ include(deployment.pri)
 DISTFILES +=
 
 HEADERS += \
-    stdafx.h
+    stdafx.h \
+    qmain.h
 
-SOURCES += main.cpp
+SOURCES += \
+    main.cpp \
+    qmain.cpp
 
 unix:!macx|win32: LIBS += -L$$PWD/../../../../boost/stage/lib/ -llibboost_filesystem-vc110-mt-1_57 -llibboost_date_time-vc110-mt-gd-1_57
 

@@ -14,9 +14,12 @@ include(deployment.pri)
 DISTFILES +=
 
 HEADERS += \
-    stdafx.h
+    stdafx.h \
+    qmain.h
 
-SOURCES += main.cpp
+SOURCES += \
+    main.cpp \
+    qmain.cpp
 
 INCLUDEPATH += $$PWD/../../../boost
 DEPENDPATH += $$PWD/../../../boost
