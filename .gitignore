@@ -8,6 +8,10 @@
 bin/
 obj/
 
+Makefile
+Makefile.[Dd]ebug
+Makefile.[Rr]elease
+
 # Special files
 3rdparty/
 tmp/
