@@ -22,7 +22,7 @@ Rectangle {
             anchors.left: banner.left
             anchors.leftMargin: 20
             anchors.verticalCenter: banner.verticalCenter
-            visible: root.currentIndex == 1 ? true : false
+            visible: (root.currentIndex == 1)
 
             MouseArea {
                 anchors.fill: parent
@@ -36,7 +36,7 @@ Rectangle {
             anchors.left: banner.right
             anchors.leftMargin: -100
             anchors.verticalCenter: banner.verticalCenter
-            visible: true
+            visible: (root.currentIndex != 1)
 
             MouseArea {
                 anchors.fill: parent
@@ -97,12 +97,12 @@ Rectangle {
             StockListView {
                 id: listView
                 width: root.width
-                height: root.height - 100
+                height: root.height - 15
             }
             StockView {
                 id: stockView
                 width: root.width
-                height: root.height - 100
+                height: root.height - 15
                 stocklist: listView
                 stock: stock
             }
