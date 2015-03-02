@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+if (CMAKE_VERSION VERSION_LESS 2.8.3)
+    message(FATAL_ERROR "Qt 5 requires at least CMake version 2.8.3")
+endif()
 
 set(PROJECT_NAME Cedarwood)
 
@@ -38,9 +40,9 @@ cmake_policy(SET CMP0020 NEW)
 
 project(${PROJECT_NAME} CXX)
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Declarative)
-find_package(Qt5 COMPONENTS Quick Qml Core Network Declarative)
+find_package(Qt5 COMPONENTS Quick Qml Core Network Declarative REQUIRED)
+message("--   Qt5_FOUND: ${Qt5_FOUND}")
+message("--   Qt5Quick_FOUND: ${Qt5Quick_FOUND}")
 if (Qt5_POSITION_INDEPENDENT_CODE)
   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()

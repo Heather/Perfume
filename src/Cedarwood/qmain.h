@@ -9,7 +9,7 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 
-static class qmain {
+class qmain {
 public:
   static int main(QQmlApplicationEngine* engine);
 };
