@@ -29,9 +29,14 @@ set(QML_FILES
         StockView.qml
         ObjectModel.qml
 )
-set(RES_FILES 
+set(RES_FILES
     resources/logo.png
+    resources/logo.ico
     resources/left.png
+)
+
+set(ICO 
+    resources/ico.rc
 )
 
 source_group("QML" FILES ${QML_FILES})
@@ -59,7 +64,8 @@ add_executable( ${PROJECT_NAME} WIN32
     ${SRC_FILES}
     ${HEADERS}
     ${QML_FILES}
-    ${RESOURCES} 
+    ${RESOURCES}
+    ${ICO}
 )
 
 if(MSVC)
