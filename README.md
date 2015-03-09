@@ -1,8 +1,6 @@
 Qt5 QtQuick Boost Interprocess CMAKE Application Template
 ---------------------------------------------------------
 
-<img align="right" src="http://www.eisenberg.com/media/product/2ef/j-ose-by-eisenberg-paris-9b5.png">
-
  - Boost Application runs as Service on Windows, as Daemon on Linux, can self install / uninstall / run from console
  - Plugin system support via Boost.DLL
  - Modern CMAKE system for crossIDE building
