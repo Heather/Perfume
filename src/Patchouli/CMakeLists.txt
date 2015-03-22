@@ -3,10 +3,12 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 set(PROJECT_NAME Patchouli)
 SET(HEADERS
     stdafx.h
+    service.h
     server.h
 )
 set(SRC_FILES 
     server.cpp
+    service.cpp
     main.cpp
 )
 
