@@ -1,5 +1,3 @@
-#define app_name "Patchouli 0.0.1"
-
 #include "service.h"
 
 #include <boost/program_options.hpp>
@@ -16,7 +14,7 @@ namespace po = boost::program_options;
 
 namespace Patchouli {
 
-  bool setup(boost::application::context& context, bool& is_service) {
+  bool setup(boost::application::context& context, bool& is_service, const std::string service_name) {
     boost::strict_lock<boost::application::aspect_map> guard(context);
 
     boost::shared_ptr<boost::application::args> myargs
@@ -51,7 +49,7 @@ namespace Patchouli {
     boost::system::error_code ec;
 
     if (vm.count("version")) {
-      std::cout << app_name << std::endl;
+      std::cout << service_name << std::endl;
       return true;
     }
 

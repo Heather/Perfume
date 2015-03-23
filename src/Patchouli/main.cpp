@@ -1,4 +1,4 @@
-#define app_name "Patchouli 0.0.1"
+#define app_name "Patchouli 0.0.2"
 
 #include "service.h"
 
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
   bool is_service = true;
 
-  if (setup(app_context, is_service)) {
+  if (setup(app_context, is_service, app_name)) {
     LOG4CPLUS_INFO(logger, "Setup changed the current configuration");
     return 0;
   }
