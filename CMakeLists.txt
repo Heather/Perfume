@@ -15,6 +15,7 @@ if (NOT DEPS_LOCATION)
 endif()
 include_directories(${DEPS_LOCATION}/include)
 link_directories(${DEPS_LOCATION}/lib)
+link_directories(${DEPS_LOCATION}/lib64)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING

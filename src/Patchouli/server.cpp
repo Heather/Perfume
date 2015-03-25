@@ -11,7 +11,11 @@ namespace Patchouli {
     /// TODO: We're on Windows so far - so consider Syslog for unix
     /// Add WinDbgAppender by default
 
+#if defined(BOOST_WINDOWS_API)
     SharedObjectPtr<Appender> a(new Win32DebugAppender());
+#else
+    SharedObjectPtr<Appender> a(new FileAppender("server.log"));
+#endif
     log4cplus::tstring pattern = LOG4CPLUS_TEXT("%D{%d-%m-%Y %H:%M:%S.%q} %c{2} %-5p [%l] %m%n");
 
     a->setLayout(std::auto_ptr<Layout>(new PatternLayout(pattern)));

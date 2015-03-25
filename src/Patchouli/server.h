@@ -10,6 +10,7 @@
 #include <log4cplus/win32debugappender.h>
 #include <log4cplus/nullappender.h>
 #include <log4cplus/helpers/property.h>
+#include <log4cplus/fileappender.h>
 
 using namespace log4cplus;
 using namespace log4cplus::helpers;

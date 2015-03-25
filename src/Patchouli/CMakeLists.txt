@@ -16,9 +16,7 @@ project(${PROJECT_NAME} CXX)
 
 include_directories (.)
 add_executable( ${PROJECT_NAME} ${SRC_FILES} ${HEADERS} )
-if(MSVC)
-    set(EXT_LOG4CPLUS_NAME debug "log4cplusSD" optimized "log4cplusS" CACHE STRING "Log4cplus Libraries")
-endif()
+set(EXT_LOG4CPLUS_NAME debug "log4cplusSD" optimized "log4cplusS" CACHE STRING "Log4cplus Libraries")
 target_link_libraries(${PROJECT_NAME} ${EXT_LOG4CPLUS_NAME})
 target_link_libraries(${PROJECT_NAME}
         ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY}
