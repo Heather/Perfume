@@ -34,10 +34,6 @@ message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 if (NOT Boost_FOUND)
     message(FATAL "Boost not found")
 endif()
-
-if (WIN32)
-    set (CMAKE_PREFIX_PATH "F:\\Qt\\5.4\\msvc2012_opengl")
-endif()
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
