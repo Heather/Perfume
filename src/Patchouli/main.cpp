@@ -1,11 +1,8 @@
-#define app_name "Patchouli 0.0.2"
+#define app_name "Patchouli 0.0.3"
 
 #include "service.h"
 
 using namespace log4cplus;
-using namespace log4cplus::helpers;
-using namespace log4cplus::spi;
-
 using namespace Patchouli;
 
 int main(int argc, char *argv[]) {
@@ -18,7 +15,7 @@ int main(int argc, char *argv[]) {
 
   // my server aspects
   app_context.insert<boost::application::path>(
-    boost::make_shared<boost::application::default_path>());
+    boost::make_shared<boost::application::path>());
 
   app_context.insert<boost::application::args>(
     boost::make_shared<boost::application::args>(argc, argv));
@@ -69,7 +66,7 @@ int main(int argc, char *argv[]) {
   // my server instantiation
   boost::system::error_code ec;
 
-  int result = 0;
+  int result;
   if (is_service) {
     result = boost::application::launch<boost::application::server>(app, app_context, ec);
   } else {

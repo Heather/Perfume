@@ -7,9 +7,6 @@
 #endif
 
 using namespace log4cplus;
-using namespace log4cplus::helpers;
-using namespace log4cplus::spi;
-
 namespace po = boost::program_options;
 
 namespace Patchouli {
@@ -63,7 +60,6 @@ namespace Patchouli {
       return false;
     }
 
-
     if (vm.count("-i")) {
       boost::application::example::install_windows_service(
         boost::application::setup_arg(vm["name"].as<std::string>()),
@@ -109,7 +105,6 @@ namespace Patchouli {
           return false;
       }
 #endif
-
 
     return false;
   }
