@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 #Rplace it with your actual QT prefix path
 if (WIN32)
     set (CMAKE_PREFIX_PATH "F:\\Qt\\5.4\\msvc2012_opengl")
+    set (BOOST_ROOT "F:\\P\\thridparty\\boost")
 endif()
 
 set(PROJECT_NAME Perfume)
