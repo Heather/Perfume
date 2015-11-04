@@ -18,11 +18,11 @@ include_directories(${DEPS_LOCATION}/include)
 link_directories(${DEPS_LOCATION}/lib)
 link_directories(${DEPS_LOCATION}/lib64)
 
-if (WIN32)
-    # ...
-else()
-    find_package(Threads REQUIRED)
-endif()
+#if (WIN32)
+#    # ...
+#else()
+#    find_package(Threads REQUIRED)
+#endif()
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING

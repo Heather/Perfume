@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;
-  auto ret = qmain::main(&engine);
+  int ret = qmain::main(&engine);
   return (ret == 0) ?
      app.exec() : ret;
 }
