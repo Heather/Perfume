@@ -9,5 +9,5 @@ int main(int argc, char *argv[]) {
   QQmlApplicationEngine engine;
   int ret = qmain::main(&engine);
   return (ret == 0) ?
-     app.exec() : ret;
+    app.exec() : ret;
 }

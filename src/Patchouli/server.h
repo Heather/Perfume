@@ -17,6 +17,7 @@ using namespace log4cplus::helpers;
 using namespace log4cplus::spi;
 
 namespace Patchouli {
+
   void init_default(Logger& target, LogLevel ll);
   class server {
   public:
@@ -47,4 +48,5 @@ namespace Patchouli {
   private:
     boost::application::context& ctx_;
   };
+
 }

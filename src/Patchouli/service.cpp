@@ -1,5 +1,7 @@
 #include "service.h"
 
+#include <iostream>
+
 #include <boost/program_options.hpp>
 /// provide setup example for windows service
 #if defined(BOOST_WINDOWS_API)
@@ -91,19 +93,20 @@ namespace Patchouli {
       (",c", "run on console")
       ;
 
-      po::variables_map vm;
-      po::store(po::parse_command_line(myargs->argc(), myargs->argv(), install), vm);
-      boost::system::error_code ec;
+    po::variables_map vm;
+    po::store(po::parse_command_line(myargs->argc(), myargs->argv(), install), vm);
+    boost::system::error_code ec;
 
-      if (vm.count("help")) {
-         std::cout << install << std::cout;
-         return true;
-      }
+    if (vm.count("help")) {
+      std::cout << install;
+      std::cout << "\n";
+      return true;
+    }
 
-      if (vm.count("-c")) {
-          is_service = false;
-          return false;
-      }
+    if (vm.count("-c")) {
+      is_service = false;
+      return false;
+    }
 #endif
 
     return false;

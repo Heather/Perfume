@@ -3,7 +3,7 @@
 	url = https://github.com/snikulov/cmake-modules.git
 [submodule "hdr/application"]
 	path = hdr/application
-	url = https://github.com/Heather/Boost.Application.git
+	url = https://github.com/retf/Boost.Application.git
 [submodule "hdr/plugin"]
 	path = hdr/plugin
 	url = https://github.com/apolukhin/Boost.DLL.git

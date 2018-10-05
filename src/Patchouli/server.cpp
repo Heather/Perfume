@@ -4,6 +4,7 @@ using namespace log4cplus;
 using namespace boost::interprocess;
 
 namespace Patchouli {
+
   void init_default(Logger& target, LogLevel ll) {
     /// TODO: We're on Windows so far - so consider Syslog for unix
     /// Add WinDbgAppender by default
@@ -72,4 +73,5 @@ namespace Patchouli {
 
     return 0;
   }
+
 }

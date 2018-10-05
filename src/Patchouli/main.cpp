@@ -1,6 +1,8 @@
-#define app_name "Patchouli 0.0.3"
+#define app_name "Patchouli 0.0.4"
 
 #include "service.h"
+
+#include <iostream>
 
 using namespace log4cplus;
 using namespace Patchouli;
